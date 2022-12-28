@@ -1,9 +1,15 @@
 package Frame;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import Login_User.Signup;
 
 public class Home extends JFrame {
 	private JFrame f;
@@ -40,7 +48,7 @@ public class Home extends JFrame {
 		p2.setLayout(null);
 		p2.setBounds(0,250,390,320);
 		p3 = new JPanel();
-		p3.setLayout(new GridLayout(2,2));
+		p3.setLayout(new GridLayout(2,2,3,3));
 		p3.setBounds(5,575,375,150);
 		l1 = new JLabel("Ung Coffee");
 		l1.setLayout(null);
@@ -51,6 +59,7 @@ public class Home extends JFrame {
 		tk1 = new JTextField(13);
 		tk1.setLayout(null);
 		tk1.setBounds(40, 85, 150, 30);
+		tk1.setColumns(10);
 		l3 = new JLabel("Pw  ");
 		l3.setBounds(5, 120, 150, 60);
 		l3.setLayout(null);
@@ -126,13 +135,46 @@ public class Home extends JFrame {
 		Other.setFont(f3);
 		
 		
+}
 		
+	
+	public void HomeFrame() { 
 		
+		Join.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Signup si = new Signup();
+				
+			}
+		});;
 		
+		tk1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				tk1.setForeground(Color.BLACK);
+				tk1.setBackground(Color.YELLOW);
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				tk1.setBackground(Color.WHITE);
+				tk1.setForeground(Color.LIGHT_GRAY);
+			}
+		});;
 		
-
-	}
-		public void HomeFrame() {
+		pw1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				pw1.setBackground(Color.ORANGE);
+			}
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				pw1.setBackground(Color.WHITE);
+			}
+		});;
+		
+			
+		
 			ImagePanel panel = new ImagePanel(new ImageIcon("./Image/background.png").getImage());
 		f.setLayout(null);
 		f.add(p); //이벤트 표시 
@@ -163,7 +205,6 @@ public class Home extends JFrame {
 		lorder.setForeground(Color.BLACK);
 		idpw.setBackground(Color.LIGHT_GRAY);
 		idpw.setForeground(Color.yellow);
-		
 		
 		
 		p.add(l1);
@@ -201,7 +242,7 @@ public class Home extends JFrame {
 		f.setSize(400, 800);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setLocation(800, 150);
+		f.setLocation(770, 150);
 	}
 		
 	
