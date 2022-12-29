@@ -2,6 +2,7 @@ package Frame;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -238,11 +239,13 @@ public class Home extends JFrame {
 		p2.setBackground(Color.WHITE);
 		p3.setBackground(Color.LIGHT_GRAY);
 	
-		
+		f.setPreferredSize(new Dimension(400,800/12*9));
+		f.setResizable(false);
 		f.setSize(400, 800);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setLocation(770, 150);
+		f.setLocationRelativeTo(null);
+		//f.setLocation(770, 150);
 	}
 		
 	
