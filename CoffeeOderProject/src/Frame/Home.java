@@ -20,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import Login_User.Signup;
+import Login_User.Signup2;
 
 public class Home extends JFrame {
 	private JFrame f;

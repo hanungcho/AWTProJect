@@ -3,13 +3,10 @@ package Login_User;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.TextComponent;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.lang.reflect.Member;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -25,14 +22,31 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import DB.MemberDB;
 import Frame.Home;
 import Frame.ImagePanel;
+import DB.Member;
 
 public class Signup extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField t53;
+	private JTextField t1,t5,t52,t6,t61,t62,t7,t71,t72;
+	private JTextField t2;
+	private JPasswordField t3;
+	private JPasswordField t4;
+	private JButton j1,j2,j3;
+	private JRadioButton rdBtnFemale;
 	
+	 JLabel ibPwMessage;
+	 JLabel ibPwCheckMessage;
+	MemberDB mgr;
 	public Signup() {
+		
+		mgr = new MemberDB();
+//		getContentPane().setBackground(Color.WHITE);
+//		setSize(725, 700);
+//		getContentPane().setLayout(null);
+
 		Font f1,f2;
 		JComboBox comboMail;
 		JPanel p = new JPanel();
@@ -48,8 +62,6 @@ public class Signup extends JFrame {
 		JLabel l8 = new JLabel("성별");
 		JLabel l9 = new JLabel("@");
 		t53 = new JTextField();
-		JLabel ibPwMessage;
-		JLabel ibPwCheckMessage;
 		
 		JTextField t1 = new JTextField();
 		JTextField t2 = new JTextField();
@@ -97,6 +109,7 @@ public class Signup extends JFrame {
 		t2.setBounds(110,250,150,30);
 		t2.setFont(f2);
 		t3.setBounds(110,300,150,30);
+		t3.setFont(f2);
 		t4.setBounds(110,350,150,30);
 		t4.setFont(f2);
 		t5.setBounds(70,400,100,30);
@@ -161,6 +174,18 @@ public class Signup extends JFrame {
 		rdBtnFemale.setBounds(170,540,70,50);
 		add(rdBtnFemale);
 		
+		ibPwMessage = new JLabel("4자 이상으로 넣어주세요");
+		ibPwMessage.setFont(new Font("굴림", Font.PLAIN, 12));
+		ibPwMessage.setBounds(260,300,150,30);
+		add(ibPwMessage);
+		
+		ibPwCheckMessage = new JLabel("비밀번호를 한번 더 입력해주세요.");
+		ibPwCheckMessage.setBackground(Color.WHITE);
+		ibPwCheckMessage.setFont(new Font("굴림", Font.PLAIN, 12));
+		ibPwCheckMessage.setBounds(260,350,150,30);
+		add(ibPwCheckMessage);
+		
+		
 		ImagePanel panel = new ImagePanel(new ImageIcon("./Image/Event.jpg").getImage());
 		panel.setBounds(0, 30, 100, 50);
 		getContentPane().add(panel);
@@ -199,6 +224,7 @@ public class Signup extends JFrame {
 		add(j2);
 		add(j3);
 		add(p);
+		
 		setSize(420,800);
 		setResizable(false);
 		setPreferredSize(new Dimension(420,800/12*9));
@@ -248,6 +274,7 @@ public class Signup extends JFrame {
 				}
 			}
 		});
+		
 		t3.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -259,52 +286,145 @@ public class Signup extends JFrame {
 				t3.setBackground(Color.WHITE);
 			}
 		});
+		t3.setBounds(110,300,150,30);
+		
 		
 		t4.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
 				t4.setBackground(Color.ORANGE);
+				String pw1 = new String(t3.getPassword());
+				System.out.println("첫번째 암호 : " + pw1);
+				if(pw1.isEmpty() && pw1.length() < 4) {
+					ibPwMessage.setForeground(Color.RED);
+					ibPwMessage.setText("패스워드를 다시 확인해주세요");
+					t4.requestFocusInWindow();
+				}
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
 				t4.setBackground(Color.WHITE);
+				String pw1 = new String(t3.getPassword());
+				String pw2 = new String(t4.getPassword());
+				System.out.println("두번째 암호 : " + pw2);
+				if(pw2.isEmpty()) {
+					ibPwCheckMessage.setForeground(Color.RED);
+					ibPwCheckMessage.setText("패스워드를 다시 확인해주세요");
+					//t3/Second.requestFocusInWindow();
+				}else {
+					if(pw1.equals(pw2)) {
+						System.out.println("사용가능한 비밀번호입니다");
+					ibPwCheckMessage.setForeground(Color.BLUE);
+					ibPwCheckMessage.setText("사용가능한 비밀번호입니다");
+					ibPwMessage.setText("");
+					
+					checkJoinAvailable();
+					
+					}else {
+						System.out.println("암호가 불일치합니다");
+					ibPwCheckMessage.setForeground(Color.RED);
+					ibPwCheckMessage.setText("암호가 불일치합니다");
+					t3.requestFocusInWindow();
+					}
+
+				}
 			}
+		
 		});
 		
+		
+		j3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String targetLogin = t2.getText();
+				if(targetLogin.isEmpty() || targetLogin == null) {
+					System.out.println("아이디를 다시 입력하세요");
+				}else {
+				Member mb = mgr.getOneMemberByLogin(targetLogin);
+					if (mb == null) {// 없는 아이디 일경우 사용 가능
+						JOptionPane.showMessageDialog(null, "사용가능한 아이디입니다.");
+						bLoginDup = false;
+					} else { // 이미 유저가 있음
+						System.out.println("중복된 아이디가 있습니다.");
+						JOptionPane.showMessageDialog(null, "중복된 아이디가 있습니다.");
+						bLoginDup = true;
+					}
+				}
+			}
+			});
+		
+		
+
+//		ibPwCheckMessage = new JLabel("비밀번호를 한번 더 입력해주세요.");
+//		ibPwCheckMessage.setBackground(Color.WHITE);
+//		ibPwCheckMessage.setFont(new Font("굴림", Font.PLAIN, 12));
+//		ibPwCheckMessage.setBounds(260,350,150,30);
+//		add(ibPwCheckMessage);
+	
+		
+		j2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				Home frm = new Home();
+				frm.setVisible(true);
+			}
+		
+		
+		});
+
+		j1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("회원가입 DB 통신...");
+				// 입력 데이터 추출
+				String login = t2.getText();
+				String pw = new String(t3.getPassword());
+				String name = t1.getText();
+				String email = t5.getText() + t52.getText();
+				String phone = t6.getText() + t61.getText() + t62.getText();
+				String birth = t7.getText() + t71.getText() + t72.getText();
+				int gender = rdBtnFemale.isSelected() ? DB.Member.GENDER_FEMALE : DB.Member.GENDER_MALE;
+
+				// DB 연동
+				Member mb = new Member(name, login, pw, email, phone, birth, gender);
+				boolean b = mgr.insertOneMember1(mb);
+				if (b) {
+					JOptionPane.showMessageDialog(null, "감사합니다, 회원가입에 성공하셨습니다.");
+				} else {
+					JOptionPane.showMessageDialog(null, "감사합니다, 회원가입에 성공하셨습니다.");
+				}
+
+				dispose();
+				Home frm = new Home();
+				frm.setVisible(true);
+			}
+			
+		
+		});
 	}
-}
+//		
+//		
+		
+		
+		
+		
 	
 
-		
-//				String pw1 =  new String(t4.getPassword());
-//				System.out.println("첫번째 암호 :" + t3);
-//				if(pw1.isEmpty() && pw1.length() <4) {
-//					ibPwMessage.setForeground(Color.RED);
-//					ibPwMessage.setText("패스워드를 다시 확인해주세요");
-//					t4.requestFocusInWindow();
-//					
-//				}
-//					
-//				}
-//				String pw1 = new String(t4.getPassword());
-//				String pw2 = new String(t4.getPassword());
-//				System.out.println("두번째 암호" +t4);
-//				if(pw2.isEmpty()) {
-//					ibPwCheckMessage.setForeground(Color.RED);
-//					ibPwCheckMessage.setText("패스워드를 다시 확인해주세요");
-//					t4.requestFocusInWindow();
-//				}else {
-//					if(pw2.equals(pw1)) {
-//						System.out.println("사용가능한 비밀번호 입니다");
-//					ibPwCheckMessage.setForeground(Color.BLUE);
-//					ibPwCheckMessage.setText("사용 가능한 비밀번호입니다");
-//					ibPwMessage.setText("");
-//					
-//					checkJoinAvailable();
-//					}else {
-//						System.out.println("암호가 불일치합니다");
-//					}ibPwCheckMessage.setForeground(Color.RED);
-//					ibPwCheckMessage.setText("암호가 불일치합니다");
-//					t3.requestFocusInWindow();
 
-//	
+
+private boolean bLoginDup;
+
+protected void checkJoinAvailable() {
+	// 길이, 중복.. 범위. 구성.. 체크..
+	// 검증.. validation + 보안?
+	String pw1 = new String(t3.getPassword());
+	String pw2 = new String(t4.getPassword());
+
+	if (!t2.getText().isEmpty() && !t1.getText().isEmpty()
+			&& (!pw1.isEmpty() && !pw2.isEmpty() && pw1.equals(pw2)) && this.bLoginDup == false) {
+		j1.setEnabled(false);
+	} else {
+		j1.setEnabled(true);
+	}
+
+}
+			
+	}	
