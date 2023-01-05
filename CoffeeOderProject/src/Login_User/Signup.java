@@ -378,7 +378,7 @@ public class Signup extends JFrame {
 				String login = t2.getText();
 				String pw = new String(t3.getPassword());
 				String name = t1.getText();
-				String email = t5.getText() + t52.getText();
+				String email = t5.getText() + t53.getText();
 				String phone = t6.getText() + t61.getText() + t62.getText();
 				String birth = t7.getText() + t71.getText() + t72.getText();
 				int gender = rdBtnFemale.isSelected() ? DB.Member.GENDER_FEMALE : DB.Member.GENDER_MALE;
