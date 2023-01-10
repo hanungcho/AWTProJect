@@ -24,7 +24,7 @@ import DB.Member;
 import DB.MemberDB;
 import Find.IdOrPwFindFrame;
 import Login_User.Signup;
-import Login_User.Signup2;
+import Order.MenuFrame;
 
 public class Home extends JFrame {
 	private JFrame f;
@@ -124,6 +124,7 @@ public class Home extends JFrame {
 		Mycoupon.setFocusPainted(false);
 		Mycoupon.setOpaque(false);
 		Mycoupon.setRolloverIcon(icon6);
+		
 		Pay = new JButton("간", icon7);
 		Pay.setFont(f4);
 		Pay.setLayout(null);
@@ -164,6 +165,14 @@ public class Home extends JFrame {
 	}
 
 	public void HomeFrame() {
+		Order.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Home h2 = new Home();
+				h2.setVisible(false);
+				MenuFrame frm2 = new MenuFrame();
+				frm2.setVisible(true);
+			}
+		});
 		
 		Logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -325,8 +334,8 @@ public class Home extends JFrame {
 		f.setResizable(false);
 		f.setSize(400, 800);
 		f.setVisible(true);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setLocationRelativeTo(null);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// f.setLocation(770, 150);
 	}
 
