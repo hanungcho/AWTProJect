@@ -53,14 +53,14 @@ public class ProductPanel extends JPanel
 //		lbImage.setMaximumSize(new Dimension(200, 150));
 		lbImage.setSize(new Dimension(100, 125));
 		lbImage.setOpaque(true);
-		ImageIcon ic = new ImageIcon("Image/stamp2.png" + pr.getImagePath());
-		Image scaled = ic.getImage().getScaledInstance(150, 100, Image.SCALE_FAST);
+		//ImageIcon ic = new ImageIcon("Image/stamp2.png" + pr.getImagePath());
+		//Image scaled = ic.getImage().getScaledInstance(150, 100, Image.SCALE_FAST);
 		
-		ic.setImage(scaled);
-		lbImage.setIcon(ic);
+		//ic.setImage(scaled);
+		//lbImage.setIcon(ic);
 		lbImage.repaint();
-//		lbImage.setIcon(new ImageIcon("C:\\dev2020\\java_ws\\MyProjectPart\\images\\menu\\" + pr.getImagePath()));
-//		lbImage.setSize(200, 150);
+		lbImage.setIcon(new ImageIcon("C:\\Users\\Administrator\\Desktop\\starbucks-master\\images\\menu" + pr.getImagePath()));
+		lbImage.setSize(150, 100);
 		lbImage.setPreferredSize(new Dimension(150, 100));
 		
 		add(lbImage, BorderLayout.NORTH);

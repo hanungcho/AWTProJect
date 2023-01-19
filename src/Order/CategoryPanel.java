@@ -51,7 +51,6 @@ public class CategoryPanel extends JPanel
 			btn.setBorder(emptyBorder);
 			btn.setOpaque(true);
 			btn.setForeground(Color.white);
-			//btn.setBackground(data.Product.STARBUCKS_GREEN);
 			btn.setPreferredSize(new Dimension(400/4, 70));
 			btn.setText(Product.CATEGORY[i]);
 			btn.setHorizontalAlignment(SwingConstants.CENTER);
@@ -71,7 +70,6 @@ public class CategoryPanel extends JPanel
 		public void focusGained(FocusEvent e)
 		{
 			JButton btn = (JButton) e.getSource();
-		//	btn.setForeground(data.Product.STARBUCKS_GREEN);
 			btn.setBackground(Color.white);
 		}
 
@@ -80,7 +78,6 @@ public class CategoryPanel extends JPanel
 		{
 			JButton btn = (JButton) e.getSource();
 			btn.setForeground(Color.white);
-		//	btn.setBackground(data.Product.STARBUCKS_GREEN);
 		}
 		
 	}

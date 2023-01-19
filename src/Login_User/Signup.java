@@ -318,7 +318,7 @@ public class Signup extends JFrame {
 					ibPwCheckMessage.setText("사용가능한 비밀번호입니다");
 					ibPwMessage.setText("");
 					
-					checkJoinAvailable();
+					//checkJoinAvailable();
 					
 					}else {
 						System.out.println("암호가 불일치합니다");

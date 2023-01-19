@@ -97,7 +97,8 @@ public class MenuPanel extends JPanel
                   bd.setVisible(true);
                }
             });
-            pn.add(pp);
+            pp.add(pp);
+            
             scrollPane.setViewportView(pn);
          }
          pnCard.add(Product.CATEGORY[i], temp);

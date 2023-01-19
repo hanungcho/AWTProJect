@@ -12,11 +12,11 @@ import javax.swing.border.EmptyBorder;
 //import data.Basket;
 import DB.Product;
 import Frame.RoundedButton2;
-import data.order;
+import DB.order;
 import Order.BasketContainer;
 import Order.CategoryPanel;
 import Order.MenuPanel;
-import Order.OrderSheetDialog;
+import admin.OrderSheetDialog;
 import Order.paymentWindow;
 
 import java.awt.Color;
@@ -112,7 +112,7 @@ public class MenuFrame extends JFrame
 		pnLogo.setPreferredSize(new Dimension(400, 30));
 		pnCategory.add(pnLogo, BorderLayout.NORTH);
 
-		//pnLogo.setLayout(new BorderLayout(0, 0));
+		pnLogo.setLayout(new BorderLayout(0, 0));
 
 		lbTitle = new JLabel("Ung Coffee");
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -139,7 +139,6 @@ public class MenuFrame extends JFrame
 //		lbLeft.setHorizontalAlignment(SwingConstants.CENTER);
 //		lbLeft.setPreferredSize(new Dimension(72, 70));
 //		lbLeft.setForeground(Color.white);
-//		lbLeft.setBackground(data.Product.STARBUCKS_GREEN);
 //		pnBtn.add(lbLeft, BorderLayout.WEST);
 
 		pnType = new CategoryPanel(this);
@@ -159,7 +158,6 @@ public class MenuFrame extends JFrame
 //		lbRight.setHorizontalAlignment(SwingConstants.CENTER);
 //		lbRight.setPreferredSize(new Dimension(72, 70));
 //		lbRight.setForeground(Color.white);
-//		lbRight.setBackground(data.Product.STARBUCKS_GREEN);
 //		pnBtn.add(lbRight, BorderLayout.EAST);
 
 		pnMenu = new MenuPanel(this);
@@ -170,6 +168,7 @@ public class MenuFrame extends JFrame
 		contentPane.add(pnGroup1, BorderLayout.NORTH);
 
 		pnGroup2 = new JPanel();
+		
 		pnGroup2.setLayout(new BorderLayout(0, 0));
 
 		pnBasket = new BasketContainer(this);
@@ -202,7 +201,6 @@ public class MenuFrame extends JFrame
 		ic.setImage(scaled);
 		btnPay.setIcon(ic);
 		btnPay.setForeground(Color.WHITE);
-		//btnPay.setBackground(Product.STARBUCKS_GREEN);
 		btnPay.setPreferredSize(new Dimension(150, 40));
 		pnPayment.add(btnPay, BorderLayout.EAST);
 
